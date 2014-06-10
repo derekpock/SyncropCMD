@@ -1,0 +1,4 @@
+#!/bin/bash
+cd /usr/share/syncrop/
+java -jar SyncropCMD.jar "$@"
+cd $OLDPWD
