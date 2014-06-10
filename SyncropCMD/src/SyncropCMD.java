@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -442,9 +441,24 @@ public class SyncropCMD {
 					killed=false;
 				}
 				//TODO
-				try{
-					Runtime.getRuntime().exec("java -jar /usr/share/syncrop/Syncrop.jar");
-				} catch (Exception e) { o.println("Syncrop not correctly installed! Cannot find syncrop files! Aborting!"); }
+				if(unix) {
+					if(mac) {
+						
+					} else {
+						try{
+							Runtime.getRuntime().exec("java -jar /usr/share/syncrop/Syncrop.jar");
+						} catch (Exception e) { o.println("Syncrop not correctly installed! Cannot find syncrop files! Aborting!"); return; }
+					}
+				} else {
+					try {
+						Process p = Runtime.getRuntime().exec("cmd /c \"reg query HKCU\\Software\\Syncrop /v Path | findstr /r /c:Path\"");
+						p.waitFor();
+						BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+						String[] inputs = br.readLine().split(" ");
+						String path = inputs[inputs.length-1].trim();
+						Runtime.getRuntime().exec("cmd /c \"java -jar " + path + "Syncrop.jar\"");
+					} catch (Exception e) { o.println("Syncrop not correctly installed! Cannot find syncrop files! Aborting!"); return; }
+				}
 				if(killed) {
 					o.println("Syncrop successfully restarted.");
 				} else {
