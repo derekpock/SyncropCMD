@@ -443,7 +443,7 @@ public class SyncropCMD {
 				}
 				//TODO
 				try{
-					Runtime.getRuntime().exec("java -jar /usr/share/syncrop/CLI.jar");
+					Runtime.getRuntime().exec("java -jar /usr/share/syncrop/Syncrop.jar");
 				} catch (Exception e) { o.println("Syncrop not correctly installed! Cannot find syncrop files! Aborting!"); }
 				if(killed) {
 					o.println("Syncrop successfully restarted.");
