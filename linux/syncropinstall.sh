@@ -48,14 +48,14 @@ if [[ ! $PWD == "/usr/bin" ]]
 	exit 1
 fi
 if [[ -f './syncrop' ]]; then rm './syncrop'; fi;
-wget -q --tries=3 ropmc.no-ip.info:50005/syncrop/syncrop
+wget -q --tries=3 ropmc.no-ip.info:50005/syncrop/linux/syncrop
 if [[ ! "$?" == "0" ]]
 	then echo 'Unable to download syncrop! Aborting!'
 	exit 1
 fi
 chmod 755 syncrop
 if [[ -f './updateSyncrop' ]]; then rm './updateSyncrop'; fi; 
-wget -q --tries=3 ropmc.no-ip.info:50005/syncrop/updateSyncrop
+wget -q --tries=3 ropmc.no-ip.info:50005/syncrop/linux/updateSyncrop
 if [[ ! "$?" == "0" ]]
 	then echo 'Unable to download updateSyncrop! Aborting!'
 	exit 1
