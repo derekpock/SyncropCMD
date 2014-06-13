@@ -589,31 +589,31 @@ public class SyncropCMD {
 	}
 	private static boolean writeConf() {
 		conf.configData = new ArrayList<String>();
-		conf.configData.add(ID+"\n");
+		conf.configData.add(ID);
 		for(Account account:accounts) {
-			if(account.newPass.length()!=0) conf.configData.add(account.username + "\t" + account.encryptedPass + "\t" + account.newPass + "\n");
-			else conf.configData.add(account.username + "\t" + account.encryptedPass + "\n");
-			conf.configData.add(account.enabled + "\n");
+			if(account.newPass.length()!=0) conf.configData.add(account.username + "\t" + account.encryptedPass + "\t" + account.newPass);
+			else conf.configData.add(account.username + "\t" + account.encryptedPass);
+			conf.configData.add(account.enabled);
 			String temp = "";
 			for(String line:account.excludeDirs) {
 				temp = temp.concat(line + "\t");
 			}
 			if(temp.length()!=0) temp = temp.substring(0, temp.length()-1);
-			conf.configData.add(temp+"\n");
+			conf.configData.add(temp);
 			
 			temp = "";
 			for(String line:account.includeDirs) {
 				temp = temp.concat(line + "\t");
 			}
 			if(temp.length()!=0) temp = temp.substring(0, temp.length()-1);
-			conf.configData.add(temp+"\n");
+			conf.configData.add(temp);
 			
 			temp = "";
 			for(String line:account.includeAbsDirs) {
 				temp = temp.concat(line + "\t");
 			}
 			if(temp.length()!=0) temp = temp.substring(0, temp.length()-1);
-			conf.configData.add(temp+"\n");
+			conf.configData.add(temp);
 		}
 		return conf.writeFile();
 	}
