@@ -593,7 +593,7 @@ public class SyncropCMD {
 		for(Account account:accounts) {
 			if(account.newPass.length()!=0) conf.configData.add(account.username + "\t" + account.encryptedPass + "\t" + account.newPass);
 			else conf.configData.add(account.username + "\t" + account.encryptedPass);
-			conf.configData.add(account.enabled);
+			conf.configData.add(account.enabled+"");
 			String temp = "";
 			for(String line:account.excludeDirs) {
 				temp = temp.concat(line + "\t");
