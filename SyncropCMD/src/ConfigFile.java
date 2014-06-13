@@ -112,6 +112,7 @@ public class ConfigFile {
 		for(int i=0; i<configData.size(); i++) {
 			try {
 				out.write(configData.get(i));
+				out.writeLine();
 			} catch (IOException e) {
 				System.err.println("Could not write data " + i + " to file! File corrputed!");
 				try{out.close();}catch(IOException e1){}
