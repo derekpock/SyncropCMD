@@ -15,4 +15,4 @@ hs_err_pid*
 # custom additions
 AppDataFolder
 SyncropPackage.zip
-.manifest
+.metadata
