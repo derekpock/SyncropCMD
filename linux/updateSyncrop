@@ -26,12 +26,13 @@ fi
 chmod 755 SyncropCMD.jar
 
 if [[ -f './CLI.jar' ]]; then rm './CLI.jar'; fi; 
-wget -q --tries=3 ropmc.no-ip.info:50005/syncrop/CLI.jar
+if [[ -f './Syncrop.jar' ]]; then rm './Syncrop.jar'; fi; 
+wget -q --tries=3 ropmc.no-ip.info:50005/syncrop/Syncrop.jar
 if [[ ! "$?" == "0" ]]
-	then echo 'Unable to download CLI.jar! Aborting!'
+	then echo 'Unable to download Syncrop.jar! Aborting!'
 	exit 1
 fi
-chmod 755 CLI.jar
+chmod 755 Syncrop.jar
 
 if [[ -f './Client.jar' ]]; then rm './Client.jar'; fi; 
 wget -q --tries=3 ropmc.no-ip.info:50005/syncrop/Client.jar
