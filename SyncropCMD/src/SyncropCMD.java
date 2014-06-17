@@ -431,9 +431,11 @@ public class SyncropCMD {
 					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 					BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 					out.println("SHUTDOWN");
+					out.flush();
 					while(!in.readLine().equals("DONE")) {
 						o.println("Unknown response from syncrop, trying to kill again...");
 						out.println("SHUTDOWN");
+						out.flush();
 					}
 					killed=true;
 					clientSocket.close();
@@ -471,9 +473,11 @@ public class SyncropCMD {
 					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 					BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 					out.println("SHUTDOWN");
+					out.flush();
 					while(!in.readLine().equals("DONE")) {
 						o.println("Unknown response from syncrop, trying to kill again...");
 						out.println("SHUTDOWN");
+						out.flush();
 					}
 					killed=true;
 					clientSocket.close();
@@ -492,9 +496,11 @@ public class SyncropCMD {
 					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 					BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 					out.println("PING");
+					out.flush();
 					while(!in.readLine().equals("PONG")) {
 						o.println("Unknown response from syncrop, trying to ping again...");
 						out.println("PING");
+						out.flush();
 					}
 					killed=true;
 					clientSocket.close();
