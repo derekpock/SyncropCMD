@@ -468,7 +468,7 @@ public class SyncropCMD {
 					o.println("Syncrop successfully started.");
 				}
 			} else if(se(0, "stop")) { 
-				boolean killed=false;
+				boolean killed=true;
 				try {
 					Socket clientSocket = new Socket("localhost", 50002);
 					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -492,7 +492,7 @@ public class SyncropCMD {
 					o.println("Syncrop was not found running, so not stopped.");
 				}
 			} else if (se(0,"status")) {
-				boolean killed=false;
+				boolean killed=true;
 				try {
 					Socket clientSocket = new Socket("localhost", 50002);
 					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
