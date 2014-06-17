@@ -440,6 +440,7 @@ public class SyncropCMD {
 					killed=true;
 					clientSocket.close();
 				} catch (Exception e) {
+					e.printStackTrace();
 					killed=false;
 				}
 				//TODO
@@ -482,6 +483,7 @@ public class SyncropCMD {
 					killed=true;
 					clientSocket.close();
 				} catch (Exception e) {
+					e.printStackTrace();
 					killed=false;
 				}
 				if(killed) {
@@ -505,6 +507,7 @@ public class SyncropCMD {
 					killed=true;
 					clientSocket.close();
 				} catch (Exception e) {
+					e.printStackTrace();
 					killed=false;
 				}
 				if(killed) {
