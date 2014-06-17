@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -425,7 +426,7 @@ public class SyncropCMD {
 					System.exit(1);
 				}
 			} else if(se(0, "start")) { 
-				boolean killed=false;
+				boolean killed=true;
 				try {
 					Socket clientSocket = new Socket("localhost", 50002);
 					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -439,10 +440,9 @@ public class SyncropCMD {
 					}
 					killed=true;
 					clientSocket.close();
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (ConnectException e) {
 					killed=false;
-				}
+				} catch (Exception e) {	}
 				//TODO
 				if(unix) {
 					if(mac) {
@@ -482,10 +482,10 @@ public class SyncropCMD {
 					}
 					killed=true;
 					clientSocket.close();
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (ConnectException e) {
 					killed=false;
-				}
+				} catch (Exception e) {	}
+				
 				if(killed) {
 					o.println("Syncrop successfully stopped.");
 				} else {
@@ -506,10 +506,10 @@ public class SyncropCMD {
 					}
 					killed=true;
 					clientSocket.close();
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (ConnectException e) {
 					killed=false;
-				}
+				} catch (Exception e) {	}
+				
 				if(killed) {
 					o.println("Syncrop currently running.");
 				} else {
