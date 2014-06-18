@@ -186,6 +186,10 @@ public class SyncropCMD {
 						o.println("Account " + args.get(1)+ " does not exist!");
 						System.exit(1);
 					}
+					if((accounts.get(accountNumber).includeDirs.size()+accounts.get(accountNumber).includeAbsDirs.size())==0) {
+						o.println("Account " + args.get(1)+ " has no includes to uninclude!");
+						System.exit(1);
+					}
 					o.println("Enter number of include to uninclude: ");
 					String dirName;
 					for(int i=0; i<(accounts.get(accountNumber).includeDirs.size()+accounts.get(accountNumber).includeAbsDirs.size()); i++) {
@@ -236,6 +240,10 @@ public class SyncropCMD {
 					}
 					if(!accountExists) {
 						o.println("Account " + args.get(1)+ " does not exist!");
+						System.exit(1);
+					}
+					if((accounts.get(accountNumber).excludeDirs.size())==0) {
+						o.println("Account " + args.get(1)+ " has no excludes to unexclude!");
 						System.exit(1);
 					}
 					o.println("Enter number of exclude to unexclude: ");
@@ -520,7 +528,7 @@ public class SyncropCMD {
 					o.println("Syncrop currently stopped.");
 				}
 			} else if(se(0,"log")) {
-				o.println("Do CTRL+C to stop log output.\nTip: Place an & at the end of the command to have it run in the background but\n still display when there is output.");
+				o.println("Do CTRL+C to stop log output.\nTip: If using linux or mac, place an & at the end of the command to have it run\nin the background but still display when there is output.");
 				try { Thread.sleep(1000); } catch (InterruptedException e) {}
 				try{ 
 					@SuppressWarnings("resource")
@@ -551,7 +559,7 @@ public class SyncropCMD {
 		}
 	private static void readConf() {
 		if(!conf.readFile()) {
-			o.println("\nAn error occurred when reading ~"+slash+CONF_PATH+".syncropconfig");
+			o.println("\nAn error occurred when reading " + CONF_PATH+".syncropconfig");
 			System.exit(1);
 		}
 		if((conf.configData.size()-1)%5!=0) {
@@ -586,18 +594,17 @@ public class SyncropCMD {
 					o.println("Password will be encrypted when syncrop daemon is running.");
 				} else {
 					o.println("Syncrop configuration failed! Manual configuration required.");
+					System.exit(1);
 				}
-				System.exit(0);
 			} else {
 				o.println("Syncrop configuration aborted.");
 				System.exit(0);
 			}
-		} else {
-			accounts = new ArrayList<Account>();
-			ID = conf.configData.get(0);
-			for(int i=0; i<((conf.configData.size()-1)/5); i++) {
-				accounts.add(new Account(i));
-			}
+		}
+		accounts = new ArrayList<Account>();
+		ID = conf.configData.get(0);
+		for(int i=0; i<((conf.configData.size()-1)/5); i++) {
+			accounts.add(new Account(i));
 		}
 	}
 	private static boolean writeConf() {
@@ -632,41 +639,5 @@ public class SyncropCMD {
 	}
 	private static boolean se(int index, String str2) {
 		return args.get(index).trim().equalsIgnoreCase(str2.toLowerCase().trim());
-	}
-	private static class Account {
-		public String username="", encryptedPass="", newPass="";
-		public boolean enabled=true;
-		public ArrayList<String> includeDirs, excludeDirs, includeAbsDirs;
-		public Account(int accNum) {
-			username = conf.configData.get(1+(5*accNum)).split("\t")[0];
-			encryptedPass = conf.configData.get(1+(5*accNum)).split("\t")[1];
-			newPass = conf.configData.get(1+(5*accNum)).replaceFirst(username + "\t" + encryptedPass, "");
-			if(newPass.startsWith("\t")) newPass.replaceFirst("\t", "");
-			try {
-				enabled = Boolean.parseBoolean(conf.configData.get(2+(5*accNum)).trim());
-			} catch (Exception e) { e.printStackTrace(); System.exit(1); }
-			excludeDirs = new ArrayList<String>();
-			includeDirs = new ArrayList<String>();
-			includeAbsDirs = new ArrayList<String>();
-			
-			String[] temp = conf.configData.get(3+(5*accNum)).split("\t");
-			for(String line:temp) {
-				if(line.length()!=0) excludeDirs.add(line);
-			}
-			temp = conf.configData.get(4+(5*accNum)).split("\t");
-			for(String line:temp) {
-				if(line.length()!=0) includeDirs.add(line);
-			}
-			temp = conf.configData.get(5+(5*accNum)).split("\t");
-			for(String line:temp) {
-				if(line.length()!=0) includeAbsDirs.add(line);
-			}
-		}
-		public Account() {
-			includeDirs = new ArrayList<String>();
-			excludeDirs = new ArrayList<String>();
-			includeAbsDirs = new ArrayList<String>();
-			enabled = true;
-		}
 	}
 }
