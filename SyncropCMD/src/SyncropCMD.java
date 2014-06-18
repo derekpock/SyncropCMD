@@ -91,8 +91,9 @@ public class SyncropCMD {
 					for(int i=2; i<args.size(); i++) {
 						folder = folder.concat(args.get(i)+" ");
 					}
-					folder.trim();
 					if(folder.endsWith(slash+"")) {
+						folder = folder.substring(0, folder.length()-2);
+					} else {
 						folder = folder.substring(0, folder.length()-1);
 					}
 					boolean good=true;
@@ -131,8 +132,9 @@ public class SyncropCMD {
 					for(int i=2; i<args.size(); i++) {
 						folder = folder.concat(args.get(i)+" ");
 					}
-					folder.trim();
 					if(folder.endsWith(""+slash)) {
+						folder = folder.substring(0, folder.length()-2);
+					} else {
 						folder = folder.substring(0, folder.length()-1);
 					}
 					if(unix) {
