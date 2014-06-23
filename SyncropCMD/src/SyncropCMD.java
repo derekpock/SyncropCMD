@@ -580,21 +580,21 @@ public class SyncropCMD {
 				if(writeConf()) {
 					o.println("Syncrop configuration completed.");
 					o.println("Password will be encrypted when syncrop daemon is running.");
+					o.println("Continuing with initial requested operation...");
 				} else {
-					o.println("Syncrop configuration failed! Manual configuration required.");
+					o.println("Syncrop configuration failed! Manual configuration required. Aborting!");
+					System.exit(1);
 				}
-				System.exit(0);
 			} else {
-				o.println("Syncrop configuration aborted.");
+				o.println("Syncrop configuration aborted. Aborting!");
 				System.exit(0);
-			}
-		} else {
-			accounts = new ArrayList<Account>();
-			ID = conf.configData.get(0);
-			for(int i=0; i<((conf.configData.size()-1)/5); i++) {
-				accounts.add(new Account(i));
 			}
 		}
+		accounts = new ArrayList<Account>();
+		ID = conf.configData.get(0);
+		for(int i=0; i<((conf.configData.size()-1)/5); i++) {
+			accounts.add(new Account(i));
+		}	
 	}
 	private static boolean writeConf() {
 		conf.configData = new ArrayList<String>();
