@@ -42,6 +42,13 @@ if [[ ! "$?" == "0" ]]
 fi
 chmod 755 Client.jar
 
+if [[ -f './jna.jar' ]]; then rm './jna.jar'; fi;
+wget -q --tries=3 ropmc.no-ip.info:50005/syncrop/jna.jar
+if [[ ! "$?" == "0" ]]
+        then echo 'Unable to download jna.jar! Aborting!'
+        exit 1
+fi
+chmod 755 jna.jar
 
 
 cd /usr/bin
